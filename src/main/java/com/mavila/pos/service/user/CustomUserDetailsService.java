@@ -1,6 +1,5 @@
 package com.mavila.pos.service.user;
 
-import com.mavila.pos.entity.user.User;
 import com.mavila.pos.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService  implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository repository;
 
@@ -26,9 +25,17 @@ public class CustomUserDetailsService  implements UserDetailsService {
                         new UsernameNotFoundException("User not found")
                 );
 
-        return new User(
+        if (user.getRole() == null) {
+            throw new UsernameNotFoundException("User role not found");
+        }
+
+        return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
+                Boolean.TRUE.equals(user.getIsActive()),
+                true,
+                true,
+                true,
                 List.of(
                         new SimpleGrantedAuthority(
                                 "ROLE_" + user.getRole().name()
