@@ -1,8 +1,11 @@
 package com.mavila.pos.controller.auth;
 
+import com.mavila.pos.dto.request.ForgotPasswordRequestDTO;
 import com.mavila.pos.dto.request.LoginRequestDTO;
+import com.mavila.pos.dto.request.ResetPasswordRequestDTO;
 import com.mavila.pos.dto.response.LoginResponseDTO;
 import com.mavila.pos.service.auth.AuthService;
+import com.mavila.pos.service.user.PasswordResetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,28 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private  PasswordResetService service;
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Void> forgotPassword(
+            @Valid @RequestBody ForgotPasswordRequestDTO dto
+    ) {
+
+        service.forgotPassword(dto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(
+            @Valid @RequestBody ResetPasswordRequestDTO dto
+    ) {
+        service.resetPassword(dto);
+
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(
