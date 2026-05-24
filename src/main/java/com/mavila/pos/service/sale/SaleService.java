@@ -11,6 +11,7 @@ import com.mavila.pos.entity.user.User;
 import com.mavila.pos.mapper.SaleMapper;
 import com.mavila.pos.repository.sale.SaleRepository;
 import com.mavila.pos.service.product.ProductService;
+import com.mavila.pos.service.stock.StockMovementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,9 +39,9 @@ public class SaleService {
         Sale sale = new Sale();
 
         sale.setCreatedAt(LocalDateTime.now());
-        sale.setStatus(SaleStatus.COMPLETED);
+        sale.setSaleStatus(SaleStatus.COMPLETED);
         sale.setPaymentMethod(paymentMethod);
-        sale.setCashier(cashier);
+        sale.setUser(cashier);
 
         List<SaleItem> saleItems = new ArrayList<>();
 
