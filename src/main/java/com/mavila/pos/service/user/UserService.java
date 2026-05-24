@@ -7,6 +7,7 @@ import com.mavila.pos.mapper.UserMapper;
 import com.mavila.pos.repository.user.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
+    @Autowired
     private final UserRepository repository;
+
+    @Autowired
     private final UserMapper mapper;
+
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     public UserResponseDTO create(UserRequestDTO dto) {
