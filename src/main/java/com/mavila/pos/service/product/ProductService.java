@@ -9,6 +9,7 @@ import com.mavila.pos.repository.category.CategoryRepository;
 import com.mavila.pos.repository.product.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +42,7 @@ public class ProductService {
         return mapper.toResponse(saved);
     }
 
-    public List<ProductResponseDTO> findAll() {
+    public List<ProductResponseDTO> findAll(Pageable pageable) {
         return repository.findByActiveTrue()
                 .stream()
                 .map(mapper::toResponse)
