@@ -1,4 +1,4 @@
-package com.mavila.pos.repository.Category;
+package com.mavila.pos.repository.category;
 
 import com.mavila.pos.entity.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
