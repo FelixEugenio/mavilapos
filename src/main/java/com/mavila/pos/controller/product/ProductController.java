@@ -27,7 +27,6 @@ public class ProductController {
     private final ProductService service;
 
     @PostMapping
-    @Operation(summary = "Criar produto")
     public ResponseEntity<ProductResponseDTO> create(
             @Valid @RequestBody ProductRequestDTO dto
     ) {
@@ -37,7 +36,6 @@ public class ProductController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar produtos paginados")
     public ResponseEntity<Page<ProductResponseDTO>> findAll(
             @PageableDefault(size = 10, sort = "id") Pageable pageable
     ) {
