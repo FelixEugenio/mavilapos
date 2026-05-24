@@ -1,4 +1,9 @@
 FROM eclipse-temurin:21-jdk
-EXPOSE 8081
-ADD target/*.jar mavilapos.jar
-ENTRYPOINT ["java","-jar","/mavilapos.jar"]
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -4,9 +4,13 @@ services:
 
   postgres:
     image: postgres:16
+
     container_name: mavilapos-postgres
 
     restart: unless-stopped
+
+    env_file:
+      - .env
 
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -15,7 +19,7 @@ services:
       TZ: ${TZ}
 
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -30,6 +34,7 @@ services:
       - mavilapos-network
 
   backend:
+
     container_name: mavilapos-api
 
     build:
@@ -45,13 +50,25 @@ services:
 
       TZ: ${TZ}
 
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SERVER_PORT: ${SERVER_PORT}
+
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
 
-      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
 
-      SPRING_FLYWAY_ENABLED: true
+      SPRING_JPA_SHOW_SQL: ${SPRING_JPA_SHOW_SQL}
+
+      SPRING_FLYWAY_ENABLED: ${SPRING_FLYWAY_ENABLED}
+
+      JWT_SECRET: ${JWT_SECRET}
+
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
 
     ports:
       - "${SERVER_PORT}:8080"
