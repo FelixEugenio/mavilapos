@@ -1,6 +1,6 @@
-package com.mavila.pos.entity.cashierRegistry;
+package com.mavila.pos.entity.cashRegister;
 
-import com.mavila.pos.entity.cashierRegistry.enums.CashierStatus;
+import com.mavila.pos.entity.cashRegister.enums.CashierStatus;
 import com.mavila.pos.entity.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class cashierRegistry implements java.io.Serializable{
+public class CashRegister implements java.io.Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
